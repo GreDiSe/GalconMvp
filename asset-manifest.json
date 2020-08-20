@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/galcon-mvp/static/css/main.a8c1c994.chunk.css",
+    "main.js": "/galcon-mvp/static/js/main.eaad778c.chunk.js",
+    "main.js.map": "/galcon-mvp/static/js/main.eaad778c.chunk.js.map",
+    "runtime-main.js": "/galcon-mvp/static/js/runtime-main.6910708d.js",
+    "runtime-main.js.map": "/galcon-mvp/static/js/runtime-main.6910708d.js.map",
+    "static/js/2.59dd3844.chunk.js": "/galcon-mvp/static/js/2.59dd3844.chunk.js",
+    "static/js/2.59dd3844.chunk.js.map": "/galcon-mvp/static/js/2.59dd3844.chunk.js.map",
+    "index.html": "/galcon-mvp/index.html",
+    "precache-manifest.8c6b079c5f7675a35998bc01b6645644.js": "/galcon-mvp/precache-manifest.8c6b079c5f7675a35998bc01b6645644.js",
+    "service-worker.js": "/galcon-mvp/service-worker.js",
+    "static/css/main.a8c1c994.chunk.css.map": "/galcon-mvp/static/css/main.a8c1c994.chunk.css.map",
+    "static/js/2.59dd3844.chunk.js.LICENSE.txt": "/galcon-mvp/static/js/2.59dd3844.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.6910708d.js",
+    "static/js/2.59dd3844.chunk.js",
+    "static/css/main.a8c1c994.chunk.css",
+    "static/js/main.eaad778c.chunk.js"
+  ]
+}
