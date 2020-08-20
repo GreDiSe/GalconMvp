@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/galcon-mvp/precache-manifest.8c6b079c5f7675a35998bc01b6645644.js"
+  "/galcon-mvp/precache-manifest.2ef03b54cc44f95835f84f5e75ac34f6.js"
 );
 
 self.addEventListener('message', (event) => {
