@@ -5,41 +5,55 @@ import Circle from './circle/Circle'
 import {Statuses} from "./enums";
 import {initialState} from "../data";
 import {GameInfo} from "../types";
-import {checkIsWin} from "./utils";
+import {checkIsWin, generateField} from "./utils";
 
 const SUCCESS_MESSAGE = 'You win';
+const init = generateField();
 
 function App() {
-    const [gameData, setGameData] = useState<GameInfo>(initialState);
+    const [gameData, setGameData] = useState<GameInfo>(init);
     const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
     const [isWin, setIsWin] = useState<boolean>(false);
+
+    const onPlayerClicked = useCallback((clickedIndex: number): void => {
+        if(selectedIndex === null) return;
+
+        setGameData(gameData => {
+            const newGameData = [...gameData];
+            newGameData[clickedIndex] = {
+                ...newGameData[clickedIndex],
+                value: gameData[selectedIndex].value + gameData[clickedIndex].value
+            }
+
+            newGameData[selectedIndex] = {
+                ...newGameData[selectedIndex],
+                value: 0
+            };
+
+            return newGameData
+        })
+        setSelectedIndex(null);
+    }, [selectedIndex, gameData])
 
     const onClick = useCallback((clickedIndex: number) => (): void => {
         if(selectedIndex === null) {
             if(gameData[clickedIndex].status === Statuses.PLAYERS)
                 setSelectedIndex(clickedIndex);
         } else {
-            if(
-                clickedIndex === selectedIndex
+            if(gameData[clickedIndex].status === Statuses.PLAYERS) {
+                onPlayerClicked(clickedIndex);
+            } else if(clickedIndex === selectedIndex
                 || gameData[selectedIndex].value - gameData[clickedIndex].value < 0
             ) {
                 setSelectedIndex(null);
             } else {
                 setGameData(gameData => {
                     const newGameData = [...gameData];
-
-                    if(gameData[clickedIndex].status === Statuses.PLAYERS) {
-                        newGameData[clickedIndex] = {
-                            ...newGameData[clickedIndex],
-                            value: gameData[selectedIndex].value + gameData[clickedIndex].value
-                        };
-                    } else {
-                        newGameData[clickedIndex] = {
-                            ...newGameData[clickedIndex],
-                            status: Statuses.PLAYERS,
-                            value: gameData[selectedIndex].value - gameData[clickedIndex].value
-                        };
-                    }
+                    newGameData[clickedIndex] = {
+                        ...newGameData[clickedIndex],
+                        status: Statuses.PLAYERS,
+                        value: gameData[selectedIndex].value - gameData[clickedIndex].value
+                    };
 
                     newGameData[selectedIndex] = {
                         ...newGameData[selectedIndex],
@@ -62,15 +76,15 @@ function App() {
     useEffect(() => {
         const interval = setInterval(() => {
             setGameData(gameData => gameData.map(data => {
-                if(data.status === Statuses.NEUTRALS) return data;
+                    if(data.status === Statuses.NEUTRALS) return data;
 
-                return ({
-                    ...data,
-                    value: data.value + 1
-                })
-            }
+                    return ({
+                        ...data,
+                        value: data.value + 1
+                    })
+                }
             ))
-        }, 500)
+        }, 300)
 
         if(isWin) {
             clearInterval(interval)
@@ -81,12 +95,12 @@ function App() {
 
     return (
         <div className="App">
-            <svg height="800" width="800">
+            <svg height="650" width="1000">
                 {isWin && (
                     <text
                         dy=".3em"
                         x='50%'
-                        y={10}
+                        y='30'
                         textAnchor="middle"
                         stroke="black"
                         strokeWidth="1px"
@@ -96,6 +110,7 @@ function App() {
                 )}
                 {gameData.map((circle, index) =>
                     <Circle
+                        key={index}
                         onClick={onClick(index)}
                         selected={selectedIndex === index}
                         {...circle}

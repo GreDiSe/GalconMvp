@@ -3,6 +3,10 @@
   margin-top: 50px;
 }
 
+.App svg {
+  border: 1px solid black;
+}
+
 .WinText {
   position: absolute;
   width: auto;
